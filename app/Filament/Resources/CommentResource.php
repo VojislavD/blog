@@ -11,7 +11,6 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class CommentResource extends Resource
 {
@@ -28,7 +27,7 @@ class CommentResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')->required(),
                 Forms\Components\TextInput::make('email')->required()->email(),
-                Forms\Components\TextInput::make('body')->required()->rules('max:500'),
+                Forms\Components\Textarea::make('body')->required()->rules('max:500'),
                 Forms\Components\Select::make('status')
                     ->options([
                         CommentStatus::Pending->value =>  CommentStatus::Pending->name,
@@ -43,9 +42,9 @@ class CommentResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('post.title'),
                 Tables\Columns\TextColumn::make('name')->searchable(),
                 Tables\Columns\TextColumn::make('email')->searchable(),
-                Tables\Columns\TextColumn::make('body')->limit(50),
                 Tables\Columns\BadgeColumn::make('status')
                     ->enum([
                         CommentStatus::Pending->value => CommentStatus::Pending->name,

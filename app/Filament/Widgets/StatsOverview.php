@@ -19,7 +19,7 @@ class StatsOverview extends StatsOverviewWidget
         $commentsDifference = $this->commentsDifferece($commentsLast7Days);
 
         return [
-            Card::make('Posts Last 7 Days', $postsLast7Days)
+            Card::make('Created Posts Last 7 Days', $postsLast7Days)
                 ->description($this->differeceText($postsDifference))
                 ->descriptionIcon($this->differeceIcon($postsDifference))
                 ->color($this->differeceColor($postsDifference)),

@@ -45,7 +45,7 @@ class StatsOverview extends StatsOverviewWidget
         } else if ($difference < 0) {
             return 'heroicon-s-trending-down';
         } else {
-            return '';
+            return 'heroicon-s-minus-sm';
         }
     }
 

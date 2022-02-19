@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use App\Models\Comment;
 use App\Models\Post;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Card;
@@ -11,23 +12,53 @@ class StatsOverview extends StatsOverviewWidget
 {
     protected function  getCards(): array
     {
-        $last7days = $this->postsLast7days();
-        $difference = $this->postsDifferece($last7days);
+        $postsLast7Days = $this->postsLast7Days();
+        $postsDifference = $this->postsDifferece($postsLast7Days);
+        
+        $commentsLast7Days = $this->commentsLast7Days();
+        $commentsDifference = $this->commentsDifferece($commentsLast7Days);
 
         return [
-            Card::make('Posts Last 7 Days', $last7days)
-                ->description($this->postsDiffereceText($difference))
-                ->descriptionIcon($this->postsDiffereceIcon($difference))
-                ->color($this->postsDiffereceColor($difference))
+            Card::make('Posts Last 7 Days', $postsLast7Days)
+                ->description($this->differeceText($postsDifference))
+                ->descriptionIcon($this->differeceIcon($postsDifference))
+                ->color($this->differeceColor($postsDifference)),
+            Card::make('Comments Last 7 Days', $commentsLast7Days)
+                ->description($this->differeceText($commentsDifference))
+                ->descriptionIcon($this->differeceIcon($commentsDifference))
+                ->color($this->differeceColor($commentsDifference)),
         ];
     }
 
-    private function postsLast7days(): int
+    private function postsLast7Days(): int
     {
         return Post::where('created_at', '>', today()->subDays(7))->count();
     }
 
-    private function postsDiffereceText(int $difference): string
+    private function postsDifferece(int $last7days): int
+    {
+        $last7to14days = Post::where('created_at', '>', today()->subDays(7))
+            ->where('created_at', '<', today()->subDays(14))
+            ->count();
+        
+        return $last7days - $last7to14days;
+    }
+
+    private function commentsLast7Days(): int
+    {
+        return Comment::where('created_at', '>', today()->subDays(7))->count();
+    }
+
+    private function commentsDifferece(int $last7days): int
+    {
+        $last7to14days = Comment::where('created_at', '>', today()->subDays(7))
+            ->where('created_at', '<', today()->subDays(14))
+            ->count();
+        
+        return $last7days - $last7to14days;
+    }
+
+    private function differeceText(int $difference): string
     {   
         if ($difference > 0) {
             return $difference.' increase';            
@@ -38,7 +69,7 @@ class StatsOverview extends StatsOverviewWidget
         }
     }
 
-    private function postsDiffereceIcon(int $difference): string
+    private function differeceIcon(int $difference): string
     {
         if ($difference > 0) {
             return 'heroicon-s-trending-up';            
@@ -49,7 +80,7 @@ class StatsOverview extends StatsOverviewWidget
         }
     }
 
-    private function postsDiffereceColor(int $difference): string
+    private function differeceColor(int $difference): string
     {
         if ($difference > 0) {
             return 'success';            
@@ -58,14 +89,5 @@ class StatsOverview extends StatsOverviewWidget
         } else {
             return 'primary';
         }
-    }
-
-    private function postsDifferece(int $last7days): int
-    {
-        $last7to14days = Post::where('created_at', '>', today()->subDays(7))
-            ->where('created_at', '<', today()->subDays(14))
-            ->count();
-        
-        return $last7days - $last7to14days;
     }
 }

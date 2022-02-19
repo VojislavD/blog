@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
@@ -9,6 +10,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class Settings extends Page implements HasForms
 {
@@ -25,6 +27,8 @@ class Settings extends Page implements HasForms
     public $name;
 
     public $email;
+
+    public $avatar_url;
     
     public $current_password;
 
@@ -47,7 +51,8 @@ class Settings extends Page implements HasForms
         $state = array_filter([
             'name' => $this->name,
             'email' => $this->email,
-            'password' => $this->new_password ? Hash::make($this->new_password) : null
+            'password' => $this->new_password ? Hash::make($this->new_password) : null,
+            'avatar_url' => Storage::url(array_values($this->avatar_url)[0])
         ]);
 
         auth()->user()->update($state);
@@ -79,6 +84,14 @@ class Settings extends Page implements HasForms
                     TextInput::make('email')
                         ->label('Email Address')
                         ->required(),
+                    FileUpload::make('avatar_url')
+                        ->label('Avatar')
+                        ->image()
+                        ->maxSize(1024)
+                        ->imageCropAspectRatio('1:1')
+                        ->imageResizeTargetWidth('50')
+                        ->imageResizeTargetHeight('50')
+                        ->disk('s3')
                 ]),
             Section::make('Update Password')
                 ->columns(2)

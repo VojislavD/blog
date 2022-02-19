@@ -6,6 +6,7 @@ use App\Filament\Resources\PostResource\Pages;
 use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Post;
 use Filament\Forms;
+use Filament\Forms\Components\Grid;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -22,8 +23,11 @@ class PostResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+            ->columns(1)
             ->schema([
-                //
+                Forms\Components\TextInput::make('title')->required(),
+                Forms\Components\MarkdownEditor::make('body')->required()->rules('min:120'),
+                Forms\Components\Checkbox::make('published')->nullable()
             ]);
     }
 

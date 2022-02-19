@@ -29,7 +29,7 @@ class PostResource extends Resource
             ->columns(1)
             ->schema([
                 Forms\Components\TextInput::make('title')->required(),
-                Forms\Components\MarkdownEditor::make('body')->required()->rules('min:120'),
+                Forms\Components\RichEditor::make('body')->required()->rules('min:120'),
                 Forms\Components\Checkbox::make('published')->nullable()
             ]);
     }

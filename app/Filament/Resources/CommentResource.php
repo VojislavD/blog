@@ -18,6 +18,8 @@ class CommentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-annotation';
 
+    protected static ?string $navigationGroup = 'App';
+
     protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form

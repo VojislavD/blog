@@ -19,6 +19,8 @@ class PostResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static ?string $navigationGroup = 'App';
+
     protected static ?string $recordTitleAttribute = 'title';
 
     protected static ?int $navigationSort = 2;

@@ -39,9 +39,10 @@ class PostResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')->searchable()->limit(50),
-                Tables\Columns\TextColumn::make('body')->limit(50),
+                Tables\Columns\TextColumn::make('slug')->limit(30),
                 Tables\Columns\TextColumn::make('author'),
-                Tables\Columns\BooleanColumn::make('published')
+                Tables\Columns\BooleanColumn::make('published'),
+                Tables\Columns\TextColumn::make('published_at')
             ])
             ->filters([
                 Tables\Filters\Filter::make('published')

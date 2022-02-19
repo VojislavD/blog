@@ -34,4 +34,11 @@ class Post extends Model
             get: fn() => $this->user->name
         );
     }
+
+    public function publishedAt(): Attribute
+    {
+        return new Attribute(
+            get: fn($value) => \Carbon\Carbon::parse($value)->toFormattedDateString()
+        );
+    }
 }

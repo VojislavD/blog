@@ -11,6 +11,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Illuminate\Database\Eloquent\Builder;
 
 class PostResource extends Resource
 {
@@ -35,10 +36,13 @@ class PostResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title')->searchable(),
+                Tables\Columns\TextColumn::make('body')->limit(50),
+                Tables\Columns\BooleanColumn::make('published')
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('published')
+                    ->query(fn (Builder $query): Builder => $query->where('published', true))
             ]);
     }
 

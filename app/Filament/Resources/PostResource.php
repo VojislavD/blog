@@ -30,9 +30,10 @@ class PostResource extends Resource
         return $form
             ->columns(1)
             ->schema([
-                Forms\Components\TextInput::make('title')->required(),
+                Forms\Components\TextInput::make('title')->required()->reactive()->afterStateUpdated(fn ($set, $state) => $set('slug', str($state)->slug())),
+                Forms\Components\TextInput::make('slug')->disabled(),
                 Forms\Components\RichEditor::make('body')->required()->rules('min:120'),
-                Forms\Components\Checkbox::make('published')->nullable()
+                Forms\Components\Toggle::make('published')->nullable()
             ]);
     }
 

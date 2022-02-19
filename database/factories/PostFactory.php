@@ -19,8 +19,8 @@ class PostFactory extends Factory
     {
         return [
             'user_id' => User::factory(),
-            'slug' => $this->faker->slug(),
             'title' => $this->faker->sentence(),
+            'slug' => $this->faker->slug(),
             'body' => $this->faker->realText(1500),
             'published' => $this->faker->boolean(),
             'published_at' => now(),

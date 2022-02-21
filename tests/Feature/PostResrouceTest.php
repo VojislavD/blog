@@ -4,6 +4,10 @@ use App\Filament\Resources\PostResource;
 use App\Models\Post;
 use function Pest\Livewire\livewire;
 
+it('can render list page', function () {
+    $this->get(PostResource::getUrl())->assertSuccessful();
+});
+
 it('can render create page', function () {
     $this->get(PostResource::getUrl('create'))->assertSuccessful();
 });
@@ -12,6 +16,32 @@ it('can render edit page', function () {
     $this->get(PostResource::getUrl('edit', [
         'record' => Post::factory()->create()
     ]))->assertSuccessful();
+});
+
+it('can display data on list page', function () {
+    $post = Post::factory()->create();
+ 
+    livewire(PostResource\Pages\ListPosts::class)
+        ->assertSee([
+            str($post->title)->limit(50),
+            str($post->slug)->limit(30),
+            $post->author,
+            $post->published,
+            $post->published_at,
+        ]);
+});
+
+it('can retrieve data on edit page', function () {
+    $post = Post::factory()->create();
+ 
+    livewire(PostResource\Pages\EditPost::class, [
+        'record' => $post->getKey(),
+    ])
+        ->assertSet('data.title', $post->title)
+        ->assertSet('data.slug', $post->slug)
+        ->assertSet('data.body', $post->body)
+        ->assertSet('data.featured_image', [])
+        ->assertSet('data.published', $post->published);
 });
 
 it('can validate input', function () {
@@ -60,20 +90,7 @@ it('can validate input', function () {
         ]);
 });
 
-it('can retrieve data', function () {
-    $post = Post::factory()->create();
- 
-    livewire(PostResource\Pages\EditPost::class, [
-        'record' => $post->getKey(),
-    ])
-        ->assertSet('data.title', $post->title)
-        ->assertSet('data.slug', $post->slug)
-        ->assertSet('data.body', $post->body)
-        ->assertSet('data.featured_image', [])
-        ->assertSet('data.published', $post->published);
-});
-
-it('can save', function () {
+it('can update', function () {
     $post = Post::factory()->create();
     $newData = [
         'user_id' => auth()->id(),
@@ -129,5 +146,18 @@ it('can create', function () {
         'body' => $data['body'],
         'featured_image' => $data['featured_image'],
         'published' => $data['published']
+    ]);
+});
+
+it('can delete', function () {
+    $post = Post::factory()->create();
+ 
+    livewire(PostResource\Pages\EditPost::class, [
+        'record' => $post->getKey(),
+    ])
+        ->call('delete');
+    
+    $this->assertDatabaseMissing('posts', [
+        'id' => $post->id
     ]);
 });

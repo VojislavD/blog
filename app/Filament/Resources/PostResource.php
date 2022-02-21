@@ -35,7 +35,7 @@ class PostResource extends Resource
                     ->unique()
                     ->reactive()
                     ->afterStateUpdated(fn ($set, $state) => $set('slug', str($state)->slug())),
-                Forms\Components\TextInput::make('slug')->disabled(),
+                Forms\Components\TextInput::make('slug')->required()->disabled(),
                 Forms\Components\RichEditor::make('body')->required()->rules('min:120'),
                 Forms\Components\FileUpload::make('featured_image')
                     ->label('Featured Image')

@@ -30,9 +30,20 @@ class PostResource extends Resource
         return $form
             ->columns(1)
             ->schema([
-                Forms\Components\TextInput::make('title')->required()->reactive()->afterStateUpdated(fn ($set, $state) => $set('slug', str($state)->slug())),
+                Forms\Components\TextInput::make('title')
+                    ->required()
+                    ->unique()
+                    ->reactive()
+                    ->afterStateUpdated(fn ($set, $state) => $set('slug', str($state)->slug())),
                 Forms\Components\TextInput::make('slug')->disabled(),
                 Forms\Components\RichEditor::make('body')->required()->rules('min:120'),
+                Forms\Components\FileUpload::make('featured_image')
+                    ->label('Featured Image')
+                    ->image()
+                    ->maxSize(1024)
+                    ->imagePreviewHeight(250)
+                    ->nullable()
+                    ->disk('s3'),
                 Forms\Components\Toggle::make('published')->nullable()
             ]);
     }

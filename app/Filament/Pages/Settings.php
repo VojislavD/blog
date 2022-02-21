@@ -28,7 +28,7 @@ class Settings extends Page implements HasForms
 
     public $email;
 
-    public $avatar_url;
+    public $avatar;
     
     public $current_password;
 
@@ -52,7 +52,7 @@ class Settings extends Page implements HasForms
             'name' => $this->name,
             'email' => $this->email,
             'password' => $this->new_password ? Hash::make($this->new_password) : null,
-            'avatar_url' => Storage::url(array_values($this->avatar_url)[0])
+            'avatar' => Storage::url(array_values($this->avatar)[0])
         ]);
 
         auth()->user()->update($state);
@@ -84,7 +84,7 @@ class Settings extends Page implements HasForms
                     TextInput::make('email')
                         ->label('Email Address')
                         ->required(),
-                    FileUpload::make('avatar_url')
+                    FileUpload::make('avatar')
                         ->label('Avatar')
                         ->image()
                         ->maxSize(1024)

@@ -22,7 +22,7 @@ class User extends Authenticatable implements HasAvatar
         'name',
         'email',
         'password',
-        'avatar_url'
+        'avatar'
     ];
 
     /**
@@ -46,6 +46,6 @@ class User extends Authenticatable implements HasAvatar
 
     public function getFilamentAvatarUrl(): ?string
     {
-        return $this->avatar_url;
+        return $this->avatar;
     }
 }

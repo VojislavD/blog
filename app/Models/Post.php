@@ -23,6 +23,7 @@ class Post extends Model
         'title',
         'slug',
         'body',
+        'featured_image',
         'published',
     ];
 

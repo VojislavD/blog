@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Show;
 use App\Http\Livewire\Welcome;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', Welcome::class);
+Route::get('/', Welcome::class)->name('welcome');
+Route::get('/posts/{post:slug}', Show::class)->name('posts.show');
 
 Route::redirect('/login', '/admin/login')->name('login');

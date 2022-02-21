@@ -2465,6 +2465,15 @@ select{
 .top-11{
   top: 2.75rem;
 }
+.top-2{
+  top: 0.5rem;
+}
+.right-2{
+  right: 0.5rem;
+}
+.right-8{
+  right: 2rem;
+}
 .z-50{
   z-index: 50;
 }
@@ -3148,6 +3157,11 @@ select{
   --tw-space-y-reverse: 0;
   margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
+}
+.space-y-16 > :not([hidden]) ~ :not([hidden]){
+  --tw-space-y-reverse: 0;
+  margin-top: calc(4rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(4rem * var(--tw-space-y-reverse));
 }
 .divide-x > :not([hidden]) ~ :not([hidden]){
   --tw-divide-x-reverse: 0;

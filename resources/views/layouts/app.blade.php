@@ -13,8 +13,19 @@
         @livewireStyles
     </head>
     <body>
-        <main>
-            {{ $slot }}
+        <main class="w-full min-h-screen">
+            <div class="absolute top-2 right-8 text-sm">
+                <a href="{{ route('login') }}" class="text-gray-600 underline hover:text-gray-800">
+                    @auth
+                        {{ __('Dashboard') }}
+                    @else
+                        {{ __('Log in') }}
+                    @endauth
+                </a>
+            </div>
+            <div class="max-w-7xl mx-auto py-8">
+                {{ $slot }}
+            </div>
         </main>
 
         @livewireScripts

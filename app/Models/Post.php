@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
@@ -49,5 +50,12 @@ class Post extends Model
         return new Attribute(
             get: fn($value) => \Carbon\Carbon::parse($value)->toFormattedDateString()
         );
+    }
+
+    public function displayFeaturedImage()
+    {
+        return $this->featured_image 
+            ? Storage::url($this->featured_image) 
+            : 'https://via.placeholder.com/180'; 
     }
 }

@@ -19,7 +19,7 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'status' => CommentStatus::Pending->value,
+            'status' => CommentStatus::Pending(),
             'post_id' => Post::factory(),
             'name' => $this->faker->name(),
             'email' => $this->faker->email(),
@@ -30,21 +30,21 @@ class CommentFactory extends Factory
     public function pending(): Factory
     {
         return $this->state([
-            'status' => CommentStatus::Pending->value
+            'status' => CommentStatus::Pending()
         ]);
     }
 
     public function approved(): Factory
     {
         return $this->state([
-            'status' => CommentStatus::Approved->value
+            'status' => CommentStatus::Approved()
         ]);
     }
 
     public function rejected(): Factory
     {
         return $this->state([
-            'status' => CommentStatus::Rejected->value
+            'status' => CommentStatus::Rejected()
         ]);
     }
 }

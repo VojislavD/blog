@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('status')->default(CommentStatus::Pending->value);
+            $table->tinyInteger('status')->default(CommentStatus::Pending());
             $table->foreignId('post_id');
             $table->string('name');
             $table->string('email');

@@ -32,9 +32,9 @@ class CommentResource extends Resource
                 Forms\Components\Textarea::make('body')->required()->rules('max:500'),
                 Forms\Components\Select::make('status')
                     ->options([
-                        CommentStatus::Pending->value =>  CommentStatus::Pending->name,
-                        CommentStatus::Approved->value =>  CommentStatus::Approved->name,
-                        CommentStatus::Rejected->value =>  CommentStatus::Rejected->name,
+                        CommentStatus::Pending() =>  CommentStatus::Pending->name(),
+                        CommentStatus::Approved() =>  CommentStatus::Approved->name(),
+                        CommentStatus::Rejected() =>  CommentStatus::Rejected->name(),
                     ])
                     ->required(),
             ]);
@@ -49,22 +49,22 @@ class CommentResource extends Resource
                 Tables\Columns\TextColumn::make('email')->searchable(),
                 Tables\Columns\BadgeColumn::make('status')
                     ->enum([
-                        CommentStatus::Pending->value => CommentStatus::Pending->name,
-                        CommentStatus::Approved->value => CommentStatus::Approved->name,
-                        CommentStatus::Rejected->value => CommentStatus::Rejected->name
+                        CommentStatus::Pending() => CommentStatus::Pending->name(),
+                        CommentStatus::Approved() => CommentStatus::Approved->name(),
+                        CommentStatus::Rejected() => CommentStatus::Rejected->name()
                     ])
                     ->colors([
-                        'warning' => CommentStatus::Pending->value,
-                        'success' => CommentStatus::Approved->value,
-                        'danger' => CommentStatus::Rejected->value
+                        'warning' => CommentStatus::Pending(),
+                        'success' => CommentStatus::Approved(),
+                        'danger' => CommentStatus::Rejected()
                     ])
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
                     ->options([
-                        CommentStatus::Pending->value => CommentStatus::Pending->name,
-                        CommentStatus::Approved->value => CommentStatus::Approved->name,
-                        CommentStatus::Rejected->value => CommentStatus::Rejected->name
+                        CommentStatus::Pending() => CommentStatus::Pending->name(),
+                        CommentStatus::Approved() => CommentStatus::Approved->name(),
+                        CommentStatus::Rejected() => CommentStatus::Rejected->name()
                     ])
             ]);
     }

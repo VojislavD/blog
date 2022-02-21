@@ -10,7 +10,6 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 
 class Settings extends Page implements HasForms
 {
@@ -40,7 +39,8 @@ class Settings extends Page implements HasForms
     {
         $this->form->fill([
             'name' => auth()->user()->name,
-            'email' => auth()->user()->email
+            'email' => auth()->user()->email,
+            'avatar' => auth()->user()->avatar
         ]);
     }
 
@@ -52,7 +52,7 @@ class Settings extends Page implements HasForms
             'name' => $this->name,
             'email' => $this->email,
             'password' => $this->new_password ? Hash::make($this->new_password) : null,
-            'avatar' => Storage::url(array_values($this->avatar)[0])
+            'avatar' => array_values($this->avatar)[0]
         ]);
 
         auth()->user()->update($state);

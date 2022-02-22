@@ -52,7 +52,7 @@ class Settings extends Page implements HasForms
             'name' => $this->name,
             'email' => $this->email,
             'password' => $this->new_password ? Hash::make($this->new_password) : null,
-            'avatar' => array_values($this->avatar)[0]
+            'avatar' => $this->avatar ? array_values($this->avatar)[0] : null
         ]);
 
         auth()->user()->update($state);

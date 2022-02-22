@@ -19,7 +19,7 @@
             </div>
         @empty
             <div class="flex items-center justify-center">
-                <p>{{ __('There is no posts yet.') }}</p>
+                <p>{{ __('There are no posts yet.') }}</p>
             </div>
         @endforelse
         

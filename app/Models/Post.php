@@ -56,6 +56,6 @@ class Post extends Model
     {
         return $this->featured_image 
             ? Storage::url($this->featured_image) 
-            : 'https://via.placeholder.com/180'; 
+            : ''; 
     }
 }

@@ -10,6 +10,6 @@ it('can display published posts on welcome page', function () {
     $unpublishedPost = Post::factory()->unpublished()->create(); 
 
     livewire(Welcome::class)
-        ->assertSee(str($publishedPost->title)->limit(40))
-        ->assertDontSee(str($unpublishedPost->title)->limit(40));
+        ->assertSee($publishedPost->title)
+        ->assertDontSee($unpublishedPost->title);
 });

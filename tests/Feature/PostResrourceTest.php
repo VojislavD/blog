@@ -88,6 +88,25 @@ it('can validate input', function () {
         ->assertHasErrors([
             'data.body' => 'min'
         ]);
+
+    $data = [
+        'user_id' => auth()->id(),
+        'title' => 'Test Post',
+        'slug' => 'test-post',
+        'body' => 'This is body of the test post and it should be more than 120 characters! This is body of the test post and it should be more than 120 characters!',
+        'featured_image' => null,
+        'published' => 0
+    ];
+
+    livewire(PostResource\Pages\CreatePost::class)
+        ->set('data.user_id', $data['user_id'])
+        ->set('data.title', $data['title'])
+        ->set('data.slug', $data['slug'])
+        ->set('data.body', $data['body'])
+        ->set('data.featured_image', $data['featured_image'])
+        ->set('data.published', $data['published'])
+        ->call('create')
+        ->assertHasNoErrors();
 });
 
 it('can update', function () {

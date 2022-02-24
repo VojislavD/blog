@@ -23,7 +23,7 @@ it('can display data on list page', function () {
  
     livewire(PostResource\Pages\ListPosts::class)
         ->assertSee([
-            str($post->title)->limit(50),
+            str($post->title)->limit(40),
             str($post->slug)->limit(30),
             $post->author,
             $post->published,

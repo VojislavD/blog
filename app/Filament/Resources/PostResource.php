@@ -3,10 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PostResource\Pages;
-use App\Filament\Resources\PostResource\RelationManagers;
 use App\Models\Post;
 use Filament\Forms;
-use Filament\Forms\Components\Grid;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -30,6 +28,7 @@ class PostResource extends Resource
         return $form
             ->columns(1)
             ->schema([
+                Forms\Components\BelongsToSelect::make('category_id')->relationship('category', 'name')->required(),
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->unique()
@@ -53,7 +52,7 @@ class PostResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')->searchable()->limit(40),
-                Tables\Columns\TextColumn::make('slug')->limit(30),
+                Tables\Columns\TextColumn::make('category.name'),
                 Tables\Columns\TextColumn::make('author'),
                 Tables\Columns\BooleanColumn::make('published'),
                 Tables\Columns\TextColumn::make('published_at')

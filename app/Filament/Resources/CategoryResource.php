@@ -25,7 +25,7 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->required()->rules('max:255'),
+                Forms\Components\TextInput::make('name')->required()->rules('max:50'),
             ]);
     }
 

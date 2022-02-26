@@ -19,7 +19,7 @@ class Settings extends Page implements HasForms
 
     protected static ?string $navigationGroup = 'Account';
     
-    protected static ?int $navigationSort = 4;
+    protected static ?int $navigationSort = 5;
 
     protected static string $view = 'filament.pages.settings';
 

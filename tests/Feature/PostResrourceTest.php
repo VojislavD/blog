@@ -1,6 +1,7 @@
 <?php
 
 use App\Filament\Resources\PostResource;
+use App\Models\Category;
 use App\Models\Post;
 use function Pest\Livewire\livewire;
 
@@ -24,7 +25,7 @@ it('can display data on list page', function () {
     livewire(PostResource\Pages\ListPosts::class)
         ->assertSee([
             str($post->title)->limit(40),
-            str($post->slug)->limit(30),
+            $post->category->name,
             $post->author,
             $post->published,
             $post->published_at,
@@ -45,8 +46,11 @@ it('can retrieve data on edit page', function () {
 });
 
 it('can validate input', function () {
+    $category = Category::factory()->create();
+
     $data = [
         'user_id' => '',
+        'category_id' => '',
         'title' => '',
         'slug' => '',
         'body' => '',
@@ -56,6 +60,7 @@ it('can validate input', function () {
 
     livewire(PostResource\Pages\CreatePost::class)
         ->set('data.user_id', $data['user_id'])
+        ->set('data.category_id', $data['category_id'])
         ->set('data.title', $data['title'])
         ->set('data.slug', $data['slug'])
         ->set('data.body', $data['body'])
@@ -70,6 +75,7 @@ it('can validate input', function () {
 
     $data = [
         'user_id' => auth()->id(),
+        'category_id' => $category->id,
         'title' => 'Test Post',
         'slug' => 'test-post',
         'body' => 'Body length less than 120 characters.',
@@ -79,6 +85,7 @@ it('can validate input', function () {
 
     livewire(PostResource\Pages\CreatePost::class)
         ->set('data.user_id', $data['user_id'])
+        ->set('data.category_id', $data['category_id'])
         ->set('data.title', $data['title'])
         ->set('data.slug', $data['slug'])
         ->set('data.body', $data['body'])
@@ -91,6 +98,7 @@ it('can validate input', function () {
 
     $data = [
         'user_id' => auth()->id(),
+        'category_id' => $category->id,
         'title' => 'Test Post',
         'slug' => 'test-post',
         'body' => 'This is body of the test post and it should be more than 120 characters! This is body of the test post and it should be more than 120 characters!',
@@ -100,6 +108,7 @@ it('can validate input', function () {
 
     livewire(PostResource\Pages\CreatePost::class)
         ->set('data.user_id', $data['user_id'])
+        ->set('data.category_id', $data['category_id'])
         ->set('data.title', $data['title'])
         ->set('data.slug', $data['slug'])
         ->set('data.body', $data['body'])
@@ -142,6 +151,7 @@ it('can update', function () {
 it('can create', function () {
     $data = [
         'user_id' => auth()->id(),
+        'category_id' => Category::factory()->create()->id,
         'title' => 'Test Post',
         'slug' => 'test-post',
         'body' => 'This is body of the test post and it should be more than 120 characters! This is body of the test post and it should be more than 120 characters!',
@@ -151,6 +161,7 @@ it('can create', function () {
 
     livewire(PostResource\Pages\CreatePost::class)
         ->set('data.user_id', $data['user_id'])
+        ->set('data.category_id', $data['category_id'])
         ->set('data.title', $data['title'])
         ->set('data.slug', $data['slug'])
         ->set('data.body', $data['body'])
@@ -160,6 +171,7 @@ it('can create', function () {
  
     $this->assertDatabaseHas(Post::class, [
         'user_id' => $data['user_id'],
+        'category_id' => $data['category_id'],
         'title' => $data['title'],
         'slug' => $data['slug'],
         'body' => $data['body'],

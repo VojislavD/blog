@@ -1,8 +1,8 @@
 ## Blog Admin Panel
 <p><i>Note: App is still under heavy development</i></p>
 
-<img src="https://user-images.githubusercontent.com/23532087/155493819-3b52fe0b-3635-4741-8c6c-e1c78113690d.png" alt="Blog Admin Panel Image Light">
-<img src="https://user-images.githubusercontent.com/23532087/155492426-07b527e7-06ad-4718-867a-9d801eed0de2.png" alt="Blog Admin Panel Image Dark">
+<img src="https://user-images.githubusercontent.com/23532087/155858449-2a4af2ae-dd7e-40a5-ad83-7969232d26de.png" alt="Blog Admin Panel Image Light">
+<img src="https://user-images.githubusercontent.com/23532087/155858457-05071bb4-461e-4a51-ac93-07818c181fcb.png" alt="Blog Admin Panel Image Dark">
 
 Simple blog admin panel created with <a href="https://filamentphp.com/" target="_blank">Filament</a>. 
 

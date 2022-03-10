@@ -15,8 +15,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', '/admin');
-Route::redirect('/login', '/admin/login')->name('login');
-
 // Route::get('/', Welcome::class)->name('welcome');
 // Route::get('/posts/{post:slug}', Show::class)->name('posts.show');
